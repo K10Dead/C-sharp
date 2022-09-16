@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GRAF
+{
+    internal class Program
+    {
+
+        static int W = 160;
+        static int H = 49;//размеры
+        static float x1 = 10f;
+        static float x2 = -10f;
+        static float y1 = 10f;
+        static float y2 = -1f;
+        static int II(float x)
+        {
+            return (int)((x - x1) * W / (x2 - x1));
+        }
+        static int JJ(float y)
+        {
+            return (int)((y - y2) * H / (y1 - y2));
+        }
+
+        static void Main(string[] args)
+        {
+            Console.SetWindowSize(W, H);
+            Console.Clear();
+            float h = (x2 - x1) / W;
+            float x = x1 - h;
+
+            for (int i = 0; i < H; ++i)
+            {
+                Console.SetCursorPosition(II(0), i);
+                Console.Write("|");
+            }
+            for (int i = 0; i < W; ++i)
+            {
+                x = x + h;
+                Console.SetCursorPosition(II(x), JJ(0));
+                Console.Write("_");
+                float y = (float)Math.Exp(-x * x);
+                int b = JJ(y);
+                if (b >= 0 && b < H)
+                {
+                    Console.SetCursorPosition(II(x), b);
+                    Console.Write('*');
+                }
+
+            }
+            Console.ReadKey();
+
+        }
+    }
+}
